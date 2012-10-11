@@ -9,20 +9,15 @@ namespace DynamicViewModel
     public partial class DynamicViewModel
         : DynamicObject, INotifyPropertyChanged
     {
-        public object this[string index]
+        /// <summary>
+        /// Raises the property changed.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        protected void RaisePropertyChanged(string propertyName)
         {
-            get
-            {
-                object value;
-                _propertyValues.TryGetValue(index, out value);
-                return value;
-            }
-
-            set
-            {
-                Set(index, value);
-                RaisePropertyChanged("[" + index + "]");
-            }
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(string.Format("[{0}]", propertyName)));
         }
     }
 }

@@ -103,19 +103,62 @@ namespace DynamicViewModel
         }
 
         /// <summary>
-        /// Raises the property changed.
-        /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
-        protected void RaisePropertyChanged(string propertyName)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Gets or sets the <see cref="System.Object" /> at the specified index.
+        /// </summary>
+        /// <value>
+        /// The <see cref="System.Object" />.
+        /// </value>
+        /// <param name="index">The index.</param>
+        /// <returns></returns>
+        public object this[string index]
+        {
+            get
+            {
+                object value;
+                _propertyValues.TryGetValue(index, out value);
+                return value;
+            }
+
+            set
+            {
+                Set(index, value);
+                RaisePropertyChanged(index);
+            }
+        }
+
+
+        /// <summary>
+        /// Updates the properties of this viewModel according the given entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        public void UpdateProperties(DynamicViewModel entity)
+        {
+            foreach (var memberName in entity._propertyValues.Keys)
+            {
+                object value;
+
+                if (entity._propertyValues.TryGetValue(memberName, out value))
+                {
+                    if (value is DynamicViewModel)
+                    {
+                        var childViewModel = value as DynamicViewModel;
+                        var oldValue = this[memberName] as DynamicViewModel;
+
+                        if (oldValue != null)
+                        {
+                            oldValue.UpdateProperties(childViewModel);
+                            continue;
+                        }
+                    }
+
+                    this[memberName] = value;
+                }
+            }
+        }
     }
 }
