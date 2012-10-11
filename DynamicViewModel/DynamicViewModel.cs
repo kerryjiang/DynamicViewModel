@@ -5,7 +5,7 @@ using System.Dynamic;
 
 namespace DynamicViewModel
 {
-    public class DynamicViewModel 
+    public partial class DynamicViewModel 
         : DynamicObject, INotifyPropertyChanged
     {
         private readonly IDictionary<string, object> _propertyValues = new Dictionary<string, object>();

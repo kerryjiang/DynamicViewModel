@@ -75,6 +75,7 @@
     <Compile Include="..\DynamicViewModel\SetBinder.cs">
       <Link>SetBinder.cs</Link>
     </Compile>
+    <Compile Include="DynamicViewModel.SL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
