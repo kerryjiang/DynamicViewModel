@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.ComponentModel;
 using System.Dynamic;
-using System.Reflection;
 
 namespace DynamicViewModel
 {
@@ -17,7 +18,7 @@ namespace DynamicViewModel
         {
             var handler = PropertyChanged;
             if (handler != null)
-                handler(this, new PropertyChangedEventArgs(string.Empty));
+                handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
