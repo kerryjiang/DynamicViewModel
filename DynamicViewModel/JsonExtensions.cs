@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 
 namespace DynamicViewModel
 {
-    internal static class JsonExtensions
+    public static class JsonExtensions
     {
         public static bool TryCreateDynamic<T>(this string json, out T result)
             where T : DynamicViewModel, new()
