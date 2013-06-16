@@ -3,10 +3,16 @@
 set fdir=%WINDIR%\Microsoft.NET\Framework
 set msbuild=%fdir%\v4.0.30319\msbuild.exe
 
-%msbuild% DynamicViewModel\DynamicViewModel.csproj /p:Configuration=Debug /t:Rebuild /p:OutputPath=..\bin\Net40
+%msbuild% DynamicViewModel\DynamicViewModel.csproj /p:Configuration=Debug /t:Rebuild /p:OutputPath=..\bin\Net40\Debug
 FOR /F "tokens=*" %%G IN ('DIR /B /AD /S obj') DO RMDIR /S /Q "%%G"
 
-%msbuild% DynamicViewModel.SL\DynamicViewModel.SL.csproj /p:Configuration=Debug /t:Rebuild /p:OutputPath=..\bin\SL
+%msbuild% DynamicViewModel\DynamicViewModel.csproj /p:Configuration=Release /t:Rebuild /p:OutputPath=..\bin\Net40\Release
+FOR /F "tokens=*" %%G IN ('DIR /B /AD /S obj') DO RMDIR /S /Q "%%G"
+
+%msbuild% DynamicViewModel.SL\DynamicViewModel.SL.csproj /p:Configuration=Debug /t:Rebuild /p:OutputPath=..\bin\SL\Debug
+FOR /F "tokens=*" %%G IN ('DIR /B /AD /S obj') DO RMDIR /S /Q "%%G"
+
+%msbuild% DynamicViewModel.SL\DynamicViewModel.SL.csproj /p:Configuration=Release /t:Rebuild /p:OutputPath=..\bin\SL\Release
 FOR /F "tokens=*" %%G IN ('DIR /B /AD /S obj') DO RMDIR /S /Q "%%G"
 
 pause
